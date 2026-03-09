@@ -1,7 +1,6 @@
 import streamlit as st
 import re
 import pandas as pd
-from io import BytesIO
 
 st.title("Conversor de Bandas Horarias")
 
@@ -74,15 +73,3 @@ if st.button("Procesar"):
 
     # Mostrar tabla sin índice
     st.dataframe(df, hide_index=True)
-
-    # Generar Excel en memoria para descargar
-    output = BytesIO()
-    df.to_excel(output, index=False)
-    output.seek(0)
-
-    st.download_button(
-        "Descargar Excel",
-        data=output,
-        file_name="bandas_horarias.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
