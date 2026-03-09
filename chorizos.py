@@ -50,7 +50,7 @@ if st.button("Procesar"):
         timeline.append((b[0], b[1], "Control Axpo"))
         current = b[1] + 1
     if current < 96:
-        timeline.append((current, 95, "Gestion Garray"))
+        timeline.append((current, 95, "Control Garray"))
 
     # Convertir a horas legibles
     resultados = []
