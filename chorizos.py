@@ -47,7 +47,7 @@ if st.button("Procesar"):
         current = b[1] + 1
 
     if current < 96:
-        timeline.append((current, 95, "Gestion Garray"))
+        timeline.append((current, 95, "Control Garray"))
 
     resultados = []
     for t in timeline:
