@@ -4,14 +4,12 @@ import pandas as pd
 
 st.title("Conversor de Bandas Horarias")
 
-# Cuadro para pegar el chorizo
 texto = st.text_area("Pegue aquí el texto:", height=200)
 
 if st.button("Procesar"):
 
     indices = []
 
-    # Detectar todos los cuartos de hora en el texto
     for linea in texto.split("\n"):
         match = re.search(r'H(\d+)\s+QH(\d)', linea, re.IGNORECASE)
         if match:
@@ -26,7 +24,6 @@ if st.button("Procesar"):
 
     indices = sorted(indices)
 
-    # Agrupar cuartos consecutivos
     bloques = []
     inicio = indices[0]
     anterior = indices[0]
@@ -41,7 +38,6 @@ if st.button("Procesar"):
 
     bloques.append((inicio, anterior))
 
-    # Crear timeline con Control Axpo y Gestion Garray
     timeline = []
     current = 0
     for b in bloques:
@@ -49,10 +45,10 @@ if st.button("Procesar"):
             timeline.append((current, b[0]-1, "Gestion Garray"))
         timeline.append((b[0], b[1], "Control Axpo"))
         current = b[1] + 1
-    if current < 96:
-        timeline.append((current, 95, "Control Garray"))
 
-    # Convertir a horas legibles
+    if current < 96:
+        timeline.append((current, 95, "Gestion Garray"))
+
     resultados = []
     for t in timeline:
         start = t[0]*15
@@ -71,5 +67,28 @@ if st.button("Procesar"):
 
     df = pd.DataFrame(resultados)
 
-    # Mostrar tabla sin índice
-    st.dataframe(df, hide_index=True)
+    # ---- ESTILO DE TABLA ----
+
+    def color_control(val):
+        if val == "Control Axpo":
+            return "background-color:#ffe5e5; font-weight:bold"
+        elif val == "Gestion Garray":
+            return "background-color:#e6f2ff; font-weight:bold"
+        return ""
+
+    styled_df = (
+        df.style
+        .applymap(color_control, subset=["Control"])
+        .set_properties(**{
+            "text-align": "center",
+            "font-size": "16px"
+        })
+    )
+
+    st.subheader("Resultado")
+
+    st.dataframe(
+        styled_df,
+        hide_index=True,
+        use_container_width=True
+    )
