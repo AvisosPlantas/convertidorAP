@@ -42,7 +42,7 @@ if st.button("Procesar"):
     current = 0
     for b in bloques:
         if current < b[0]:
-            timeline.append((current, b[0]-1, "Gestion Garray"))
+            timeline.append((current, b[0]-1, "Control Garray"))
         timeline.append((b[0], b[1], "Control Axpo"))
         current = b[1] + 1
 
