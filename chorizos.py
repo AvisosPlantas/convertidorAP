@@ -67,33 +67,36 @@ if st.button("Procesar"):
 
     df = pd.DataFrame(resultados)
 
-    # ---- ESTILO DE TABLA ----
+    # ---- ESTILO TABLA ----
 
-    styled_df = (
-        df.style
-        .set_table_styles([
-            {"selector": "th", "props": [
-                ("font-size", "18px"),
+    styled_df = df.style.set_table_styles([
+        {
+            "selector": "th",
+            "props": [
+                ("color", "black"),
                 ("font-weight", "bold"),
-                ("text-align", "center"),
-                ("border", "2px solid black")
-            ]},
-            {"selector": "td", "props": [
+                ("font-size", "18px"),  # un punto más grande
+                ("border", "2px solid black"),
+                ("text-align", "center")
+            ]
+        },
+        {
+            "selector": "td",
+            "props": [
                 ("font-size", "17px"),
-                ("text-align", "center"),
-                ("border", "1px solid black")
-            ]},
-            {"selector": "table", "props": [
+                ("border", "1px solid black"),
+                ("text-align", "center")
+            ]
+        },
+        {
+            "selector": "table",
+            "props": [
                 ("border-collapse", "collapse"),
                 ("width", "100%")
-            ]}
-        ])
-    )
+            ]
+        }
+    ])
 
     st.subheader("Resultado")
 
-    st.dataframe(
-        styled_df,
-        hide_index=True,
-        use_container_width=True
-    )
+    st.table(styled_df)
