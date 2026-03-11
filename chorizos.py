@@ -69,20 +69,25 @@ if st.button("Procesar"):
 
     # ---- ESTILO DE TABLA ----
 
-    def color_control(val):
-        if val == "Control Axpo":
-            return "background-color:#ffe5e5; font-weight:bold"
-        elif val == "Gestion Garray":
-            return "background-color:#e6f2ff; font-weight:bold"
-        return ""
-
     styled_df = (
         df.style
-        .applymap(color_control, subset=["Control"])
-        .set_properties(**{
-            "text-align": "center",
-            "font-size": "16px"
-        })
+        .set_table_styles([
+            {"selector": "th", "props": [
+                ("font-size", "18px"),
+                ("font-weight", "bold"),
+                ("text-align", "center"),
+                ("border", "2px solid black")
+            ]},
+            {"selector": "td", "props": [
+                ("font-size", "17px"),
+                ("text-align", "center"),
+                ("border", "1px solid black")
+            ]},
+            {"selector": "table", "props": [
+                ("border-collapse", "collapse"),
+                ("width", "100%")
+            ]}
+        ])
     )
 
     st.subheader("Resultado")
